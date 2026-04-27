@@ -6,11 +6,11 @@ serial_config = {"port":"COM5", "boundrate":115200}
 dualshock_config = {}
 
 class Controller:
-    def __init__(self, window_info={"":""}, serial_info={"":""}, controller_info={"":""}):
+    def __init__(self, window_info={}, serial_info={}, controller_info={}):
         self.window_info = window_info
         self.serial_info = serial_info
         self.controller_info = controller_info
-    
+
     def main(self):
         self.setup()
         while True:
