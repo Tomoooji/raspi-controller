@@ -1,4 +1,6 @@
-import pygame as pg
+import sys
+import pygame
+from pygame.locals import *
 import serial
 
 window_config = {"size":(800,600), "fps":60}
@@ -15,9 +17,12 @@ class Controller:
         self.setup()
         while True:
             self.loop()
-            for event in pg.event.get():
+            for event in pygame.event.get():
                 if self.controller_info and event.type in self.controller_info.get("keys"):
                     self.getinput()
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
     
     def setup(self):
         if self.window_info:
