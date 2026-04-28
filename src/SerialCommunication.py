@@ -1,6 +1,6 @@
 import serial
 import json
-import os.path as path
+import os
 import serial.tools.list_ports
 
 class SerialCommunicater:
@@ -8,7 +8,7 @@ class SerialCommunicater:
         self.send_message = ""
         #self.recieve_message = ""
         self.print_log = print_log
-        with open(path.join("config",config_json), "r") as config:
+        with open(os.path.join(os.getcwd(),"raspi-controller","src","config", "config", config_json), "r") as config:
             self.serial_info = json.load(config)
         self.serial = serial.Serial()
         
