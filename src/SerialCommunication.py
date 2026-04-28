@@ -36,6 +36,14 @@ class SerialCommunicater:
         self.recieve_message = self.serial.readline().decode('utf-8').strip()
         if self.print_log: print(self.recieve_message)
     
-    def send(self):
+    def send(self, message = None):
+        if message: self.send_message = message
         self.serial.write(self.send_message.encode('utf-8'))
         if self.print_log: print(self.send_message)
+        
+def main():
+    ...
+
+
+if __name__ == "__main__":
+    main()
