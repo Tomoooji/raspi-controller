@@ -18,7 +18,7 @@ class GraphicInterfase:
         if "rect" in self.window_info:
             for args in self.window_info["rect"]:
                 rect = pygame.Rect(0,0,args["width"],args["heighr"])
-                rect.center = (args["center_x"], args["center_y"])
+                rect.center = (self.window_info["origin"][0]+args["center_x"], self.window_info["origin"][1]-args["center_y"])
                 pygame.draw.rect(
                     self.screen,
                     self.window_info["color"]["active" if args["plessed"] else "base"],
@@ -31,7 +31,7 @@ class GraphicInterfase:
                 pygame.draw.circle(
                     self.screen,
                     self.window_info["color"]["active" if args["plessed"] else "base"],
-                    (args["center_x"], args["center_y"]),
+                    (self.window_info["origin"][0]+args["center_x"], self.window_info["origin"][1]-args["center_y"]),
                     args["radius"]
                 )
         
@@ -40,14 +40,14 @@ class GraphicInterfase:
                 pygame.draw.circle(
                     self.screen,
                     self.window_info["color"]["base"]
-                    (args["center_x"],args["center_y"]),
+                    (self.window_info["origin"][0]+args["center_x"],self.window_info["origin"][1]-args["center_y"]),
                     args["out_radius"],
                     5
                 )
                 pygame.draw.circle(
                     self.screen,
                     self.window_info["color"]["active" if args["plessed"] else "base"],
-                    (args["value_x"]*args["out_ardius"]+args["center_x"], args["value_y"]*args["out_ardius"]+args["center_y"]),
+                    (self.window_info["origin"][0]+args["value_x"]*args["out_ardius"]+args["center_x"], self.window_info["origin"][1]-(args["value_y"]*args["out_ardius"]+args["center_y"])),
                     args["in_radius"]
                 )
 
@@ -56,16 +56,16 @@ class GraphicInterfase:
                 pygame.draw.line(
                     self.screen,
                     self.window_info["color"]["active" if "plessed" in args and args["plessed"] else "base"],
-                    (-args["width"]/2+args["center_x"],args["center_y"]),
-                    (+args["width"]/2+args["center_x"],args["center_y"]),
+                    (self.window_info["origin"][0]-args["width"]/2+args["center_x"],self.window_info["origin"][1]-args["center_y"]),
+                    (self.window_info["origin"][0]+args["width"]/2+args["center_x"],self.window_info["origin"][1]-args["center_y"]),
                     args["height"]
                 )
                 if "value" in args:
                     pygame.draw.line(
                         self.screen,
                         self.window_info["color"]["active"],
-                        (-args["width"]/2+args["center_x"], args["center_y"]),
-                        ((args["value"]*args["width"]/2)+args["center_x"], args["center_y"]),
+                        (self.window_info["origin"][0]-args["width"]/2+args["center_x"], self.window_info["origin"][1]-args["center_y"]),
+                        (self.window_info["origin"][1]+(args["value"]*args["width"]/2)+args["center_x"], self.window_info["origin"][1]-args["center_y"]),
                         args["height"]-2
                     )
                 # lineだと端が四角だがaalineは太さを指定できない
