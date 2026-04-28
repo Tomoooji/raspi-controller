@@ -7,9 +7,24 @@ class GamePad:
         self.print_log = print_log
         with open(os.path.join(os.getcwd(),"raspi-controller","src","config", config_json), "r") as config:
             self.gamepad_info = json.load(config)
-        self.gamepad = joystick.Joystick(0)
+        self.is_connecting = False
+        self.gamepad = None
         self.states = {}
         self.values = {}
+        self.connect()
+    
+    def connect(self):
+        for n in range(pygame.joystick.get_count()):
+            self.gamepad = joystick.Joystick(n)
+            if self.gamepad.get_name() == self.gamepad_info["Name"]:
+                self.is_connecting = True
+                print(f"connected:{self.gamepad.get_name()}")
+                break
+            else:
+                print("unexpected controller may be connected")
+                continue
+        else:
+            print("please connect controller to computer")
     
     def onButtonDown(self, button):
         if self.print_log: print(self.gamepad_info["Button"][button])
@@ -22,15 +37,16 @@ class GamePad:
     def onHatTilt(self, hat, value):
         if self.print_log: print(hat,value)
     
-    def update(self):
-        self.states = {button:self.gamepad.get_button(n) for n,button in enumerate(self.gamepad_info["Button"])}
+    def getInput(self):
+        self.states = {button:bool(self.gamepad.get_button(n)) for n,button in enumerate(self.gamepad_info["Button"])}
+
         for n,hat in enumerate(self.gamepad_info.get("Hat",[])):
             value = self.gamepad.get_hat(n)
             self.states[hat[0]] = value[1] == 1
             self.states[hat[1]] = value[1] ==-1
             self.states[hat[2]] = value[0] == 1
             self.states[hat[3]] = value[0] ==-1
-        self.states
+
         self.values = {axis:self.gamepad.get_axis(n) for n,axis in enumerate(self.gamepad_info["Axis"])}
         if self.print_log:
             #print(self.states)
@@ -43,8 +59,7 @@ def main():
     pygame.init()
     pad=GamePad("ElecomPad.json",True)#DualShock4
     pygame.display.set_mode((300,300))
-    while True:
-        pad.update()
+    while pad.is_connecting:
         for event in pygame.event.get():
             if event.type == pygame.JOYAXISMOTION:
                 #print(event.axis, event.value)
@@ -60,6 +75,7 @@ def main():
                 pygame.quit()
                 sys.exit()
             
+        pad.getInput()
         pygame.display.update()
         
 if __name__ == "__main__":
