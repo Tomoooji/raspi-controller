@@ -37,7 +37,7 @@ class GamePad:
             #print(self.values)
             pass
 
-import pygame
+import pygame, sys
 
 def main():
     pygame.init()
@@ -55,6 +55,10 @@ def main():
             if event.type == pygame.JOYHATMOTION:
                 if event.value[0]+event.value[1]:
                     pad.onHatTilt(event.hat, event.value)
+            
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
             
         pygame.display.update()
         
