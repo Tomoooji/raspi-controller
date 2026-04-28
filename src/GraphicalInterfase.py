@@ -1,10 +1,10 @@
 import pygame
 import json
-import os.path as path
+import os
 
 class GraphicInterfase:
     def __init__(self,config_json):
-        with open(path.join("config",config_json), "r") as config:
+        with open(os.path.join(os.getcwd(),"raspi-controller","src","config",config_json), "r") as config:
             self.window_info = json.load(config)
         self.screen = None
         
