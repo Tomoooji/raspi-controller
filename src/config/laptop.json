@@ -1,0 +1,36 @@
+{
+    "title":"RasPi Controller",
+    "size":[900,500],
+    "origin":[400,600],
+    "color":[[0,0,0],[55,55,55],[200,200,200]],
+    
+    "stick":[
+        {"tag":"RStick", "center_x": 250, "center_y":100, "out_radius":90, "in_radius":30, "pleesed":false, "value_x":0, "value_y":0},
+        {"tag":"Lstick", "center_x":-250, "center_y":100, "out_radius":90, "in_radius":30, "pleesed":false, "value_x":0, "value_y":0}
+    ],
+    
+    "bar_h":[
+        {"tag":"R2", "center_x": 300, "center_y":375, "width":200, "height":40, "value":-1},
+        {"tag":"L2", "center_x":-300, "center_y":375, "width":200, "height":40, "value":-1},
+        {"tag":"R3", "center_x": 320, "center_y":450, "width":200, "height":40, "plessed":false},
+        {"tag":"L3", "center_x":-320, "center_y":450, "width":200, "height":40, "plessed":false}
+    ],
+    
+    "circle":[
+        {"tag":"Square",  "center_x": 325, "center_y":300, "radius":20, "plessed":false},
+        {"tag":"Circle",  "center_x": 375, "center_y":300, "radius":20, "plessed":false},
+        {"tag":"Cross",   "center_x": 350, "center_y":325, "radius":20, "plessed":false},
+        {"tag":"Triangle","center_x": 350, "center_y":275, "radius":20, "plessed":false},
+        
+        {"tag":"Left", "center_x":-375, "center_y":300, "radius":20, "plessed":false},
+        {"tag":"Right","center_x":-325, "center_y":300, "radius":20, "plessed":false},
+        {"tag":"Down", "center_x":-350, "center_y":325, "radius":20, "plessed":false},
+        {"tag":"Up",   "center_x":-350, "center_y":275, "radius":20, "plessed":false},
+        
+        {"tag":"Option","center_x": 200, "center_y":300, "radius":20, "plessed":false},
+        {"tag":"Share", "center_x":-200, "center_y":300, "radius":20, "plessed":false},
+        {"tag":"PSButton", "center_x":0, "center_y":150, "radius":25, "plessed":false}
+    ],
+
+    "rect":[{"tag":"Touchpad", "center_x":0, "center_y":350, "width":300, "height":200, "plessed":false}]
+}

@@ -1,0 +1,29 @@
+{
+    "Button":[
+        "Cross",
+        "Circle",
+        "Square",
+        "Triangle",
+        "Share",
+        "PSButton",
+        "Option",
+        "L3",
+        "R3",
+        "L1",
+        "R1",
+        "Up",
+        "Down",
+        "Left",
+        "Right",
+        "Touchpad"
+    ],
+
+    "Axis":[
+        "LStickX",
+        "LStickY",
+        "RStickX",
+        "RStickY",
+        "L2",
+        "R2"
+    ]
+}
