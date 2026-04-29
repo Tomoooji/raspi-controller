@@ -14,6 +14,7 @@ raspi-controller/
 │  ├─ main.py                   # メインプログラム(未完成)
 │  ├─ test_checkcontroller.py   # コントローラーのボタン割り当て確認用テストコード
 │  ├─ GamepadInput.py           # コントローラーの入力受付用
+│  ├─ checkButtons.py           # コントローラーのボタン割り当て確認用
 │  ├─ GraphicalInterface.py     # コントローラー入力確認用の画面描画用
 │  └─ SerialCommunication.py    # マイコンとの通信用(未完成)
 ├─ LICENSE                      # これでいいのかわかってない
