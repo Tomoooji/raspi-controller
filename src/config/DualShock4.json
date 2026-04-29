@@ -1,29 +1,31 @@
 {
-    "Button":[
-        "Cross",
-        "Circle",
-        "Square",
-        "Triangle",
-        "Share",
-        "PSButton",
-        "Option",
-        "L3",
-        "R3",
-        "L1",
-        "R1",
-        "Up",
-        "Down",
-        "Left",
-        "Right",
-        "Touchpad"
-    ],
+    "Name":"PS4 Controller",
 
-    "Axis":[
-        "LStickX",
-        "LStickY",
-        "RStickX",
-        "RStickY",
-        "L2",
-        "R2"
-    ]
+    "Button":{
+        "Cross":false,
+        "Circle":false,
+        "Square":false,
+        "Triangle":false,
+        "Share":false,
+        "PSButton":false,
+        "Option":false,
+        "L3":false,
+        "R3":false,
+        "L1":false,
+        "R1":false,
+        "Up":false,
+        "Down":false,
+        "Left":false,
+        "Right":false,
+        "Touchpad":false
+    },
+
+    "Axis":{
+        "LStickX":0,
+        "LStickY":0,
+        "RStickX":0,
+        "RStickY":0,
+        "L2":-1,
+        "R2":-1
+    }
 }

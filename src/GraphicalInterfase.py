@@ -15,7 +15,7 @@ class GraphicInterfase:
             pygame.display.set_caption(self.window_info["title"])
     
     def draw(self):
-        self.screen.fill(self.window_info["background"])
+        self.screen.fill(self.window_info["color"]["background"])
         if "rect" in self.window_info:
             for args in self.window_info["rect"]:
                 rect = pygame.Rect(0,0,args["width"],args["height"])

@@ -1,26 +1,35 @@
 {
     "Name":"PC Game Controller",
     
-    "Button":[
-        "Button1",
-        "Button2",
-        "Button3",
-        "Button4",
-        "Button5",
-        "Button6",
-        "Button7",
-        "Button8",
-        "Button9",
-        "Button10",
-        "Button11",
-        "Button12"
-    ],
-    "Axis":[
-        "LStickX",
-        "LStickY",
-        "",
-        "RStickX",
-        "RStickY"
-    ],
-    "Hat":[["Hat1Up","Hat1Down","Hat1Left","Hat1Right"]]
+    "Button":{
+        "Button1" :false,
+        "Button2" :false,
+        "Button3" :false,
+        "Button4" :false,
+        "Button5" :false,
+        "Button6" :false,
+        "Button7" :false,
+        "Button8" :false,
+        "Button9" :false,
+        "Button10":false,
+        "Button11":false,
+        "Button12":false
+    },
+
+    "Axis":{
+        "LStickX":0,
+        "LStickY":0,
+        "":null,
+        "RStickX":0,
+        "RStickY":0
+    },
+    
+    "Hat":{
+        "theHat":{
+            "Up":false,
+            "Down":false,
+            "Left":false,
+            "Right":false
+        }
+    }
 }

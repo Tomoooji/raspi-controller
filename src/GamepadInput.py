@@ -7,7 +7,7 @@ class GamePad:
         self.print_log = print_log
         with open(os.path.join(os.getcwd(),"raspi-controller","src","config", config_json), "r") as config:
             self.gamepad_info = json.load(config)
-        self.is_connecting = False
+        self.is_connnect = False
         self.gamepad = None
         self.states = {}
         self.values = {}
@@ -17,49 +17,45 @@ class GamePad:
         for n in range(pygame.joystick.get_count()):
             self.gamepad = joystick.Joystick(n)
             if self.gamepad.get_name() == self.gamepad_info["Name"]:
-                self.is_connecting = True
+                self.is_connnect = True
                 print(f"connected:{self.gamepad.get_name()}")
                 break
             else:
                 print("unexpected controller may be connected")
                 continue
-        else:
-            print("please connect controller to computer")
+        print("please connect controller to computer")
     
     def onButtonDown(self, button):
-        if self.print_log: print(self.gamepad_info["Button"][button])
+        if self.print_log: print(list(self.gamepad_info["Button"].keys())[button])
         #if self.gamepad_info["Button"][button] == "Button12":
             #print(self.values)
         
     def onAxisMove(self, axis, value):
-        if self.print_log: print(self.gamepad_info["Axis"][axis],value)
+        if self.print_log and abs(value)>0.3: print(list(self.gamepad_info["Axis"].keys())[axis],value)
         
     def onHatTilt(self, hat, value):
         if self.print_log: print(hat,value)
-    
+            
     def getInput(self):
-        self.states = {button:bool(self.gamepad.get_button(n)) for n,button in enumerate(self.gamepad_info["Button"])}
-
-        for n,hat in enumerate(self.gamepad_info.get("Hat",[])):
-            value = self.gamepad.get_hat(n)
-            self.states[hat[0]] = value[1] == 1
-            self.states[hat[1]] = value[1] ==-1
-            self.states[hat[2]] = value[0] == 1
-            self.states[hat[3]] = value[0] ==-1
-
-        self.values = {axis:self.gamepad.get_axis(n) for n,axis in enumerate(self.gamepad_info["Axis"])}
-        if self.print_log:
-            #print(self.states)
-            #print(self.values)
-            pass
-
+        if "Button" in self.gamepad_info: self.gamepad_info["Button"] = {button:bool(self.gamepad.get_button(n)) for n,button in enumerate(self.gamepad_info["Button"])}
+        if "Axis" in self.gamepad_info: self.gamepad_info["Axis"] = {axis:self.gamepad.get_axis(n) for n,axis in enumerate(self.gamepad_info["Axis"])}
+        if "Hat" in self.gamepad_info: self.gamepad_info["Hat"] = {hat:{button:value for button,value in zip(self.gamepad_info["Hat"][hat].keys(),self.convertHat(self.gamepad.get_hat(n)))} for n,hat in enumerate(self.gamepad_info["Hat"].keys())}
+        #values = [list(self.convertHat(self.gamepad.get_hat(n))) for n in range(self.gamepad.get_numhats())]
+        #buttons = [list(self.gamepad_info["Hat"][hat].keys()) for hat in self.gamepad_info["Hat"]]
+        #print(buttons[0])
+        #print(values[0])
+        #self.gamepad_info["Hat"] = {hat:dict(zip(buttons[n],values[n])) for n,hat in enumerate(self.gamepad_info["Hat"].keys())}
+        
+    def convertHat(self, value):
+        return (value[0]>0, value[0]<0, value[1]>0, value[1]<0)
+    
 import pygame, sys
 
 def main():
     pygame.init()
-    pad=GamePad("ElecomPad.json",True)#DualShock4
+    pad=GamePad("DualShock4.json",True)#DualShock4#ElecomPad
     pygame.display.set_mode((300,300))
-    while pad.is_connecting:
+    while pad.is_connnect:
         for event in pygame.event.get():
             if event.type == pygame.JOYAXISMOTION:
                 #print(event.axis, event.value)
