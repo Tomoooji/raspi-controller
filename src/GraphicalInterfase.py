@@ -12,12 +12,12 @@ class GraphicInterfase:
     def begin(self):
         self.screen = pygame.display.set_mode(self.window_info["size"])
         if "title" in self.window_info:
-            pygame.dispay.set_caption(self.window_info["title"])
+            pygame.display.set_caption(self.window_info["title"])
     
     def draw(self):
         if "rect" in self.window_info:
             for args in self.window_info["rect"]:
-                rect = pygame.Rect(0,0,args["width"],args["heighr"])
+                rect = pygame.Rect(0,0,args["width"],args["height"])
                 rect.center = (self.window_info["origin"][0]+args["center_x"], self.window_info["origin"][1]-args["center_y"])
                 pygame.draw.rect(
                     self.screen,
@@ -39,34 +39,34 @@ class GraphicInterfase:
             for args in self.window_info["stick"]:
                 pygame.draw.circle(
                     self.screen,
-                    self.window_info["color"]["base"]
+                    self.window_info["color"]["base"],
                     (self.window_info["origin"][0]+args["center_x"],self.window_info["origin"][1]-args["center_y"]),
                     args["out_radius"],
                     5
                 )
                 pygame.draw.circle(
                     self.screen,
-                    self.window_info["color"]["active" if args["plessed"] else "base"],
-                    (self.window_info["origin"][0]+args["value_x"]*args["out_ardius"]+args["center_x"], self.window_info["origin"][1]-(args["value_y"]*args["out_ardius"]+args["center_y"])),
+                    self.window_info["color"]["active" if args.get("plessed",False) else "base"],
+                    (self.window_info["origin"][0]+args["value_x"]*args["out_radius"]+args["center_x"], self.window_info["origin"][1]-(args["value_y"]*args["out_radius"]+args["center_y"])),
                     args["in_radius"]
                 )
 
         if "bar_h" in self.window_info:
-            for args in self.window_info["bar"]:
+            for args in self.window_info["bar_h"]:
                 pygame.draw.line(
                     self.screen,
                     self.window_info["color"]["active" if "plessed" in args and args["plessed"] else "base"],
-                    (self.window_info["origin"][0]-args["width"]/2+args["center_x"],self.window_info["origin"][1]-args["center_y"]),
-                    (self.window_info["origin"][0]+args["width"]/2+args["center_x"],self.window_info["origin"][1]-args["center_y"]),
+                    (self.window_info["origin"][0]+args["center_x"]-(args["width"]/2),self.window_info["origin"][1]-args["center_y"]),
+                    (self.window_info["origin"][0]+args["center_x"]+(args["width"]/2),self.window_info["origin"][1]-args["center_y"]),
                     args["height"]
                 )
                 if "value" in args:
                     pygame.draw.line(
                         self.screen,
                         self.window_info["color"]["active"],
-                        (self.window_info["origin"][0]-args["width"]/2+args["center_x"], self.window_info["origin"][1]-args["center_y"]),
-                        (self.window_info["origin"][1]+(args["value"]*args["width"]/2)+args["center_x"], self.window_info["origin"][1]-args["center_y"]),
-                        args["height"]-2
+                        (self.window_info["origin"][0]+args["center_x"]-(args["width"]/2)-1, self.window_info["origin"][1]-args["center_y"]),
+                        (self.window_info["origin"][1]+args["center_x"]-(args["width"]/4)+(args["value"]*args["width"]/2), self.window_info["origin"][1]-args["center_y"]),
+                        args["height"]
                     )
                 # lineだと端が四角だがaalineは太さを指定できない
                 # 両端は〇の方が良いかもしれない
@@ -90,3 +90,21 @@ class GraphicInterfase:
                 #    self.window_info["color"][1],
                 #    rect
                 #)
+
+import sys
+
+def main():
+    gui=GraphicInterfase("laptop.json")
+    pygame.init()
+    gui.begin()
+    while True:
+        gui.screen.fill((50,100,50))
+        gui.draw()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+if __name__ == "__main__":
+    main()
