@@ -2,7 +2,7 @@
     "title":"RasPi Controller",
     "size":[900,500],
     "origin":[450,500],
-    "color":{"background":[0,0,0],"base":[55,55,55],"active":[200,200,200]},
+    "color":{"background":[50,100,50],"base":[55,55,55],"active":[200,200,200]},
     
     "stick":[
         {"tag":"RStick", "center_x": 250, "center_y":100, "out_radius":90, "in_radius":30, "pleesed":false, "value_x":0, "value_y":0},
