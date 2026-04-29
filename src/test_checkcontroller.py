@@ -1,7 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 from GamepadInput import GamePad
-from GraphicalInterfase import GraphicInterfase as GUI
+from GraphicalInterface import GraphicInterface as GUI
 
 class Controller(GUI,GamePad):
     def __init__(self, config_widow, config_controller, print_log):

@@ -2,7 +2,7 @@ import pygame
 import json
 import os
 
-class GraphicInterfase:
+class GraphicInterface:
     def __init__(self,config_json):
         with open(os.path.join(os.getcwd(),"raspi-controller","src","config",config_json), "r") as config:
             self.window_info = json.load(config)
@@ -95,7 +95,7 @@ class GraphicInterfase:
 import sys
 
 def main():
-    gui=GraphicInterfase("laptop.json")
+    gui=GraphicInterface("laptop.json")
     pygame.init()
     gui.begin()
     while True:
