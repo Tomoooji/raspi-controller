@@ -41,9 +41,20 @@ class SerialCommunicater:
         self.serial.write(self.send_message.encode('utf-8'))
         if self.print_log: print(self.send_message)
         
-def main():
-    ...
+import pygame,sys
 
+def main():
+    pygame.init()
+    ser = SerialCommunicater("ESP32.json",True)
+    ser.begin()
+    while ser.serial.is_open:
+        ser.send()
+        ser.read()
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                ser.serial.close()
+                pygame.quit()
+                sys.exit()
 
 if __name__ == "__main__":
     main()
