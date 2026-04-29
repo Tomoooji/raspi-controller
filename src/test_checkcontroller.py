@@ -21,6 +21,10 @@ class Controller(GUI,GamePad):
         self.window_info["circle"][5]["activated"] = self.gamepad_info["Button"]["Left"]
         self.window_info["circle"][6]["activated"] = self.gamepad_info["Button"]["Up"]
         self.window_info["circle"][7]["activated"] = self.gamepad_info["Button"]["Down"]
+        
+        self.window_info["circle"][7]["activated"] = self.gamepad_info["Button"]["Option"]
+        self.window_info["circle"][7]["activated"] = self.gamepad_info["Button"]["Share"]
+        self.window_info["circle"][7]["activated"] = self.gamepad_info["Button"]["PSButton"]
 
         self.window_info["bar_h"][0]["value"] = self.gamepad_info["Axis"]["R2"]
         self.window_info["bar_h"][1]["value"] = self.gamepad_info["Axis"]["L2"]
