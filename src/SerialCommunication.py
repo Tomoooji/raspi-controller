@@ -6,7 +6,7 @@ import serial.tools.list_ports
 class SerialCommunicater:
     def __init__(self,config_json, print_log = False):
         self.send_message = ""
-        #self.recieve_message = ""
+        #self.receive_message = ""
         self.print_log = print_log
         with open(os.path.join(os.getcwd(),"raspi-controller","src","config", "config", config_json), "r") as config:
             self.serial_info = json.load(config)
@@ -32,9 +32,9 @@ class SerialCommunicater:
         except serial.SerialException as e:
             print(f"error:{e}")
     
-    def reseive(self):
-        self.recieve_message = self.serial.readline().decode('utf-8').strip()
-        if self.print_log: print(self.recieve_message)
+    def receive(self):
+        self.receive_message = self.serial.readline().decode('utf-8').strip()
+        if self.print_log: print(self.receive_message)
     
     def send(self, message = None):
         if message: self.send_message = message

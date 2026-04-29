@@ -51,12 +51,16 @@ class Controller(GUI,GamePad):
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
+                
                 if event.type == JOYBUTTONDOWN:
                     GamePad.onButtonDown(self,event.button)
+                
                 if event.type == JOYAXISMOTION:
                     GamePad.onAxisMove(self,event.type,event.value)
+                
                 if event.type == JOYHATMOTION:
                     GamePad.onHatTilt(self,event.hat,event.value)
+                
             pygame.display.update()
 
 if __name__ == "__main__":
