@@ -10,6 +10,7 @@ class Controller(GUI,GamePad):
         GamePad.__init__(self, config_controller, print_log)
         
     def convert(self):
+        # window_info側にtagを付けてるのでもっと賢く書くことも当然できるが、ぶっちゃけ2,3個動けば問題ないのでそこはご愛嬌
         self.window_info["rect"][0]["activated"] = self.gamepad_info["Button"]["Touchpad"]
         
         self.window_info["circle"][0]["activated"] = self.gamepad_info["Button"]["Square"]
@@ -28,6 +29,7 @@ class Controller(GUI,GamePad):
 
         self.window_info["bar_h"][0]["value"] = self.gamepad_info["Axis"]["R2"]
         self.window_info["bar_h"][1]["value"] = self.gamepad_info["Axis"]["L2"]
+        
         self.window_info["bar_h"][2]["activated"] = self.gamepad_info["Button"]["R1"]
         self.window_info["bar_h"][3]["activated"] = self.gamepad_info["Button"]["L1"]
 
