@@ -95,7 +95,7 @@ class GraphicInterface:
 import sys
 
 def main():
-    gui=GraphicInterface("laptop.json")
+    gui=GraphicInterface("DS4window.json")
     pygame.init()
     gui.begin()
     while True:
