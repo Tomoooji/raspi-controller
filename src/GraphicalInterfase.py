@@ -22,7 +22,7 @@ class GraphicInterfase:
                 rect.center = (self.window_info["origin"][0]+args["center_x"], self.window_info["origin"][1]-args["center_y"])
                 pygame.draw.rect(
                     self.screen,
-                    self.window_info["color"]["active" if args["plessed"] else "base"],
+                    self.window_info["color"]["active" if args["activated"] else "base"],
                     rect,
                     5
                 )
@@ -31,7 +31,7 @@ class GraphicInterfase:
             for args in self.window_info["circle"]:
                 pygame.draw.circle(
                     self.screen,
-                    self.window_info["color"]["active" if args["plessed"] else "base"],
+                    self.window_info["color"]["active" if args["activated"] else "base"],
                     (self.window_info["origin"][0]+args["center_x"], self.window_info["origin"][1]-args["center_y"]),
                     args["radius"]
                 )
@@ -47,7 +47,7 @@ class GraphicInterfase:
                 )
                 pygame.draw.circle(
                     self.screen,
-                    self.window_info["color"]["active" if args.get("plessed",False) else "base"],
+                    self.window_info["color"]["active" if args.get("activated",False) else "base"],
                     (self.window_info["origin"][0]+args["value_x"]*args["out_radius"]+args["center_x"], self.window_info["origin"][1]-(args["value_y"]*args["out_radius"]+args["center_y"])),
                     args["in_radius"]
                 )
@@ -56,7 +56,7 @@ class GraphicInterfase:
             for args in self.window_info["bar_h"]:
                 pygame.draw.line(
                     self.screen,
-                    self.window_info["color"]["active" if "plessed" in args and args["plessed"] else "base"],
+                    self.window_info["color"]["active" if "activated" in args and args["activated"] else "base"],
                     (self.window_info["origin"][0]+args["center_x"]-(args["width"]/2),self.window_info["origin"][1]-args["center_y"]),
                     (self.window_info["origin"][0]+args["center_x"]+(args["width"]/2),self.window_info["origin"][1]-args["center_y"]),
                     args["height"]
