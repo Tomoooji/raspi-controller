@@ -1,9 +1,27 @@
-constexpr int baudrate = 115200;
+#define BAOUDRATE 115200
+
+constexpr int data_num = 20;
+int inputData[data_num];
 
 void setup(){
-  Serial.begin(baudrate);
+  Serial.begin(BAUDRATE);
 }
 
-void loop(){
-  
+void loop(){}
+
+void readInput(){
+  while(Serial.available()){
+    String pair = Serial.readStringUntil(',');
+    int siteColon = pair.indexOf(',');
+    if(siteColon>0){
+      int index = pair.substring(0,siteColon).toInt();
+      int value = pair.substring(siteColon+1).toInt();
+      if(index>=0 && index<data_num){
+        inputData[index] = value;
+        if(index == data_num-1){
+          return;
+        }
+      }
+    }
+  }
 }
