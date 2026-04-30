@@ -25,3 +25,13 @@ void readInput(){
     }
   }
 }
+
+void writeArray(){
+  for(int i=0; i<data_num; i++){
+    //Serial.print(",");
+    Serial.print(i);
+    Serial.print(":");
+    Serial.print(inputData[i]);
+  }
+  Serial.println();
+}
