@@ -41,6 +41,35 @@ class Controller(GUI,GamePad):
         self.window_info["stick"][1]["value_y"] = -self.gamepad_info["Axis"]["LStickY"]
         self.window_info["stick"][1]["activated"] = -self.gamepad_info["Button"]["L3"]
         
+    def convert_for_raspi(self):
+        self.window_info["circle"][0]["activated"] = self.gamepad_info["Button"]["Square"]
+        self.window_info["circle"][1]["activated"] = self.gamepad_info["Button"]["Circle"]
+        self.window_info["circle"][2]["activated"] = self.gamepad_info["Button"]["Triangle"]
+        self.window_info["circle"][3]["activated"] = self.gamepad_info["Button"]["Cross"]
+        
+        self.window_info["circle"][4]["activated"] = self.gamepad_info["Hat"]["theHat"]["Right"]
+        self.window_info["circle"][5]["activated"] = self.gamepad_info["Hat"]["theHat"]["Left"]
+        self.window_info["circle"][6]["activated"] = self.gamepad_info["Hat"]["theHat"]["Up"]
+        self.window_info["circle"][7]["activated"] = self.gamepad_info["Hat"]["theHat"]["Down"]
+        
+        self.window_info["circle"][8]["activated"] = self.gamepad_info["Button"]["Option"]
+        self.window_info["circle"][9]["activated"] = self.gamepad_info["Button"]["Share"]
+        self.window_info["circle"][10]["activated"] = self.gamepad_info["Button"]["PSButton"]
+
+        self.window_info["bar_h"][0]["value"] = self.gamepad_info["Axis"]["R2"]
+        self.window_info["bar_h"][1]["value"] = self.gamepad_info["Axis"]["L2"]
+        
+        self.window_info["bar_h"][2]["activated"] = self.gamepad_info["Button"]["R1"]
+        self.window_info["bar_h"][3]["activated"] = self.gamepad_info["Button"]["L1"]
+
+        self.window_info["stick"][0]["value_x"] = self.gamepad_info["Axis"]["RStickX"]
+        self.window_info["stick"][0]["value_y"] = -self.gamepad_info["Axis"]["RStickY"]
+        self.window_info["stick"][0]["activated"] = -self.gamepad_info["Button"]["R3"]
+
+        self.window_info["stick"][1]["value_x"] = self.gamepad_info["Axis"]["LStickX"]
+        self.window_info["stick"][1]["value_y"] = -self.gamepad_info["Axis"]["LStickY"]
+        self.window_info["stick"][1]["activated"] = -self.gamepad_info["Button"]["L3"]
+        
     def main(self):
         GUI.begin(self)
         while self.is_connnect:#GamePad.connecting:
