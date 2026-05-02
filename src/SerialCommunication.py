@@ -8,7 +8,7 @@ class SerialCommunicater:
         self.send_message = ""
         #self.receive_message = ""
         self.print_log = print_log
-        with open(os.path.join(os.getcwd(),"raspi-controller","src","config", "config", config_json), "r") as config:
+        with open(os.path.join(os.getcwd(),"raspi-controller","src","config", config_json), "r") as config:
             self.serial_info = json.load(config)
         self.serial = serial.Serial()
         
@@ -45,16 +45,23 @@ import pygame,sys
 
 def main():
     pygame.init()
+    pygame.display.set_mode((200,200))
     ser = SerialCommunicater("ESP32.json",True)
     ser.begin()
     while ser.serial.is_open:
-        ser.send()
-        ser.read()
+        #ser.send()
+        #ser.receive()
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    ser.send("test")
+                if event.key == pygame.K_SPACE:
+                    ser.send("quit")
+            if event.type == pygame.QUIT:
                 ser.serial.close()
                 pygame.quit()
                 sys.exit()
+        pygame.display.update()
 
 if __name__ == "__main__":
     main()

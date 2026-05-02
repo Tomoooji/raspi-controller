@@ -3,5 +3,6 @@
     "hid":"10C4",
     "pid":"EA60",
     "port":"COM3",
-    "baudrate":115200
+    "baudrate":115200,
+    "timeout":0
 }
