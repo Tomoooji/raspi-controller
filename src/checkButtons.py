@@ -19,7 +19,7 @@ def main():
                 pygame.quit()
                 sys.exit()
             if event.type==JOYAXISMOTION:
-                if event.value>0.5:
+                if abs(event.value)>0.5:
                     print(f"Axis:{event.axis} {event.value}")
             if event.type==JOYBUTTONDOWN:
                 print(f"Button:{event.button}")
