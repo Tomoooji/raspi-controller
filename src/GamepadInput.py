@@ -66,7 +66,12 @@ def main():
             if event.type == pygame.JOYHATMOTION:
                 if event.value[0]+event.value[1]:
                     pad.onHatTilt(event.hat, event.value)
-            
+            if event.type == pygame.JOYDEVICEREMOVED:
+                if pygame.joystick.get_count() == 0:
+                    print("controller disconnected")
+                    print("prgram will end...")
+                    pad.is_connnect = False
+                                
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()

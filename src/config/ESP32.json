@@ -1,8 +1,9 @@
 {
-    "seiralnumber":"0001",
-    "hid":"10C4",
-    "pid":"EA60",
     "port":"COM3",
+    "seiralnumber":"0001", "hid":"10C4", "pid":"EA60",
     "baudrate":115200,
-    "timeout":0
+    "timeout":0,
+    "protocol":{
+        
+    }
 }
