@@ -24,7 +24,7 @@ def main():
             if event.type==JOYBUTTONDOWN:
                 print(f"Button:{event.button}")
             if event.type==JOYHATMOTION:
-                print(f"Hat:{event.hat}")
+                print(f"Hat:{event.hat} {event.value}")
             if event.type==JOYDEVICEREMOVED:
                 connecting=False
         pygame.display.update()
