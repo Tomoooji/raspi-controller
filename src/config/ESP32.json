@@ -4,6 +4,7 @@
     "baudrate":115200,
     "timeout":0,
     "protocol":{
-        
+        "data1":false,
+        "data2":0
     }
 }
