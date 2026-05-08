@@ -9,8 +9,8 @@ class GamePad:
             self.gamepad_info = json.load(config)
         self.is_connnect = False
         self.gamepad = None
-        self.states = {}
-        self.values = {}
+        #self.states = {}
+        #self.values = {}
         self.connect()
     
     def connect(self):
