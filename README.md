@@ -68,5 +68,30 @@ classDiagram
         send()
     }
 ```
+```mermaid
+graph TD
+    subgraph Files [設定ファイル]
+        JA[(JSON A)]
+        JB[(JSON B)]
+        JC[(JSON C)]
+    end
+
+    subgraph Classes [クラス構成]
+        A[Class A]
+        B[Class B]
+        C[Class C]
+        D{Class D}
+    end
+
+    JA --> A
+    JB --> B
+    JC --> C
+
+    A --- D
+    B --- D
+    C --- D
+
+    note right of D: 3つを継承して<br/>ロジックを統合
+```
  ---
  最終更新:2026-05-08
