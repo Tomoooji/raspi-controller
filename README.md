@@ -24,6 +24,44 @@ raspi-controller/
  各プログラムにはその機能を担うクラスと、単体テストを行うためのmain関数がある。main.pyは3つのクラスを継承したControllerクラスを作ってmainメソッドを呼べば動くようにする予定。test_checkcontroller.pyではこのうちシリアル通信機能を省いたものを結合テストその1として作成した(PCにて動作確認済み)。  
  configフォルダ内のjsonファイルはコントローラーのボタン割り当てや画面の構成、通信関連の設定とかを保存しておいて、読み込むファイルを変えることで実行環境への依存度が減ったらいいな...ってやつ。  
  まだラズパイ上では実行してない。  
+```mermaid
+classDiagram
+    Controller --|> Gamepad
+    Controller --|> GraphicInterface
+    Controller --|> SerialCommunicater
+    Dualshock4_json --* Gamepad
+    DS4window_json --* GraphicInterface
+    ESP32_json --* SerialCommunicater
+    class Gamepad{
+        __init__()
+        bool print_log
+        Joystick gamepad
+        dict gamepad_info
+        bool is_connect
+        connect()
+        getInput()
+        onButtonDown()
+        onAxisMove()
+        onHatTilt()
+        convertHat()
+    }
+    class GraphicInterface{
+        __init__()
+        Surface screen
+        dict window_info
+        begin()
+        draw()
+    }
+    class SerialCommunicater{
+        bool print_log
+        Serial serial
+        dict serial_dict
+        str send_message
+        begin()
+        receive()
+        send()
+    }
 
+```
  ---
  最終更新:2026-04-29
