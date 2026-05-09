@@ -5,6 +5,7 @@ Raspberry Piに接続したゲームコントローラーからESP32とシリア
 ```text
 raspi-controller/
 ├─ src/
+│  ├─ img/                      # 説明用の画像フォルダ
 │  ├─ config/                   # 設定ファイルフォルダ
 │  │  ├─ DualShock4.json        # PS4コントローラー用
 │  │  ├─ DualShock4_raspi.json  # PS4コントローラー用(ラズパイ版)
@@ -116,7 +117,7 @@ flowchart  LR
     K[(Serialconfig.json)] -.->|__init__| G
     K[(Serialconfig.json)] -.->|__init__| I
     H -->|receive| I[receive_message]
-    H[[ESP32]] ===>|controll| J[/Robot/]
+    H[[ESP32]] ===>|control| J[/Robot/]
     subgraph Gamepad
     A
     B
