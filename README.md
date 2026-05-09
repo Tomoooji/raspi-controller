@@ -30,7 +30,7 @@ raspi-controller/
  ラズパイで動かしてみたところ、どうもコントローラーのボタンの割り当てとかがPCとやや異なるようで、別のjsonファイルを作って互換性をつけた。  
 　通信も特に問題なかった(python,ESPともにループの中でポーリングするようにしてるが、実行速度差を考えると非同期処理を使った方が良さそう)
 
- ↓見れない人用 [クラス図](img\classDiagram.png) ・ [フローチャート](img\flowchart.png)
+ ↓見れない人用 [クラス図](img\classDiagram.jpeg) ・ [フローチャート](img\flowchart.png)
 
 ```mermaid
 classDiagram
