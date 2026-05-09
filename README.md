@@ -134,5 +134,39 @@ flowchart  LR
     K
     end
 ```
+# 
+```mermaid
+flowchart  TB
+
+    subgraph Gamepad
+        A[(DualShock4.json)]
+        B[gamepad_info]
+        C[/Controller Input/]
+    end
+    subgraph GraphicInterface
+        D[window_info]
+        E[(DS4window.json)]
+        F[/window/]
+    end
+    subgraph SerialCommunicater
+        G[send_message]
+        I[receive_message]
+        K[(Serialconfig.json)]
+    end
+    
+    A -..->|__init__| B
+    C -->|update| B
+    B -->|convert| G
+    G -->|send| H
+    I -->|not yet| D 
+    K -.->|__init__| G
+    B -->|convert| D
+    H -->|receive| I
+    K -.->|__init__| I
+    H[[ESP32]] ===>|control| J[/Robot/]
+    E -.->|__init__| D
+    D -->|draw| F
+```
+
  ---
  最終更新:2026-05-09
