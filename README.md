@@ -32,12 +32,13 @@ raspi-controller/
 
 ```mermaid
 classDiagram
-    Dualshock4_json --* Gamepad
-    DS4window_json --* GraphicInterface
-    ESP32_json --* SerialCommunicater
-    Gamepad <|-- Controller
-    GraphicInterface <|-- Controller
-    SerialCommunicater <|-- Controller
+    direction LR
+    Dualshock4_json --* Gamepad :設定ファイル
+    DS4window_json --* GraphicInterface :設定ファイル
+    ESP32_json --* SerialCommunicater :設定ファイル
+    Gamepad <|-- Controller :継承
+    GraphicInterface <|-- Controller :継承
+    SerialCommunicater <|-- Controller :継承
     class Gamepad{
         __init__()
         bool print_log
@@ -69,9 +70,33 @@ classDiagram
     }
     class Controller{
         __init__()
-        main()
-        loop()
         setup()
+        loop()
+        main()
+    }
+    class Dualshock4_json{
+        Name
+        Button
+        Axis
+        Hat
+    }
+    class DS4window_json{
+        title
+        size
+        origin
+        color
+        stick
+        circle
+        bar_h
+        rect
+    }
+    class ESP32_json{
+        serialnumber
+        hid
+        pid
+        baudrate
+        timeout
+        protcol
     }
 ```
 ```mermaid
@@ -93,12 +118,12 @@ flowchart  LR
     B
     C
     end
-    subgraph Graphic Interface
+    subgraph GraphicInterface
     D
     E
     F
     end
-    subgraph Serial Communicater
+    subgraph SerialCommunicater
     G
     I
     K
