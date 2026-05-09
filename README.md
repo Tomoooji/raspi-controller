@@ -32,6 +32,7 @@ raspi-controller/
 
  ↓見れない人用 [クラス図](https://github.com/Tomoooji/raspi-controller/blob/dev/img/classDiagram.png) ・ [フローチャート](https://github.com/Tomoooji/raspi-controller/blob/dev/img/flowchart.png)
 
+## クラス図
 ```mermaid
 classDiagram
     direction LR
@@ -101,6 +102,7 @@ classDiagram
         protcol
     }
 ```
+## フローチャート(?)
 ```mermaid
 flowchart  LR
     C[/Controller Input/] -->|update| B
@@ -131,6 +133,5 @@ flowchart  LR
     K
     end
 ```
-フローチャートってこんなのだっけ...?
  ---
  最終更新:2026-05-09
