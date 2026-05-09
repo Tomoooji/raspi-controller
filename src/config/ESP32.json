@@ -1,0 +1,10 @@
+{
+    "port":"COM3",
+    "seiralnumber":"0001", "hid":"10C4", "pid":"EA60",
+    "baudrate":115200,
+    "timeout":0,
+    "protocol":{
+        "data1":false,
+        "data2":0
+    }
+}

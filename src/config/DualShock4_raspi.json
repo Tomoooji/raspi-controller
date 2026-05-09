@@ -1,0 +1,42 @@
+{
+    "Name":"Sony Interactive Entertainment Wireless Controller",
+
+    "Button":{
+        "Cross":false,
+        "Circle":false,
+        "Triangle":false,
+        "Square":false,
+    
+        "L1":false,
+        "R1":false,
+        
+        "L2":false,
+        "R2":false,
+    
+        "Share":false,
+        "Option":false,
+        "PSButton":false,
+
+        "L3":false,
+        "R3":false
+    },
+
+    "Axis":{
+        "LStickX":0,
+        "LStickY":0,
+        "L2":-1,
+        "RStickX":0,
+        "RStickY":0,
+        "R2":-1
+    },
+
+    "Hat":{
+        "theHat":{
+            "Right":false,
+            "Left":false,
+            "Up":false,
+            "Down":false
+        }
+    }
+
+}
