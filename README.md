@@ -32,12 +32,12 @@ raspi-controller/
 
 ```mermaid
 classDiagram
-    Controller --|> Gamepad
-    Controller --|> GraphicInterface
-    Controller --|> SerialCommunicater
     Dualshock4_json --* Gamepad
     DS4window_json --* GraphicInterface
     ESP32_json --* SerialCommunicater
+    Gamepad <|-- Controller
+    GraphicInterface <|-- Controller
+    SerialCommunicater <|-- Controller
     class Gamepad{
         __init__()
         bool print_log
@@ -67,70 +67,42 @@ classDiagram
         receive()
         send()
     }
+    class Controller{
+        __init__()
+        main()
+        loop()
+        setup()
+    }
 ```
 ```mermaid
-graph TD
-    subgraph Files [設定ファイル]
-        JA[(JSON A)]
-        JB[(JSON B)]
-        JC[(JSON C)]
+flowchart  LR
+    C[/Controller Input/] -->|update| B
+    A[(DualShock4.json)] -..->|__init__| B[gamepad_info]
+    E[(DS4window.json)] -.->|__init__| D[window_info]
+    B -->|convert| D
+    D -->|draw| F[/window/]
+    B -->|convert| G[send_message]
+    G -->|send| H
+    I -->|not yet| D 
+    K[(Serialconfig.json)] -.->|__init__| G
+    K[(Serialconfig.json)] -.->|__init__| I
+    H -->|receive| I[receive_message]
+    H[[ESP32]] ===>|controll| J[/Robot/]
+    subgraph Gamepad
+    A
+    B
+    C
     end
-
-    subgraph Classes [クラス構成]
-        A[Class A]
-        B[Class B]
-        C[Class C]
-        D{Class D}
+    subgraph Graphic Interface
+    D
+    E
+    F
     end
-
-    JA --> A
-    JB --> B
-    JC --> C
-
-    A --- D
-    B --- D
-    C --- D
-
-    note right of D: 3つを継承して<br/>ロジックを統合
+    subgraph Serial Communicater
+    G
+    I
+    K
+    end
 ```
-graph TB
-    %% 外部データ層
-    subgraph DataLayer [Data Source]
-        direction LR
-        JSON_A[(config_a.json)]
-        JSON_B[(config_b.json)]
-        JSON_C[(config_c.json)]
-    end
-
-    %% クラス定義層
-    subgraph LogicLayer [Base Classes]
-        direction LR
-        A[Class A<br/>'ConfigA Holder']
-        B[Class B<br/>'ConfigB Holder']
-        C[Class C<br/>'ConfigC Holder']
-    end
-
-    %% 統合・継承層
-    subgraph IntegrationLayer [Main Logic]
-        D{{Class D<br/>'The Orchestrator'}}
-    end
-
-    %% リレーション
-    JSON_A -- "load as dict" --> A
-    JSON_B -- "load as dict" --> B
-    JSON_C -- "load as dict" --> C
-
-    A -.->|Inheritance| D
-    B -.->|Inheritance| D
-    C -.->|Inheritance| D
-
-    %% 注釈
-    note_d[D handles unified logic using A, B, and C dicts]
-    D --- note_d
-
-    %% スタイル設定
-    style D fill:#e1f5fe,stroke:#01579b,stroke-width:2px
-    style DataLayer fill:#fff3e0,stroke:#ef6c00,stroke-dasharray: 5 5
-
  ---
  最終更新:2026-05-08
