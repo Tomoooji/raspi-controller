@@ -20,7 +20,7 @@ class SerialCommunicater:
             if len(device):
                 self.serial.port = device[0]
             else:
-                ...    
+                ...
         
         self.serial.baudrate = self.serial_info["baudrate"]
         if "timeout" in self.serial_info:

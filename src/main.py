@@ -56,7 +56,7 @@ class Controller(GP,GI,SC):
         
     def setup(self):
         SC.begin(self)
-        GI.begin(self)        
+        GI.begin(self)
         
     def loop(self):
         SC.receive(self)
