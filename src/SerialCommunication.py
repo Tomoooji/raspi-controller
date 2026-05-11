@@ -1,6 +1,7 @@
 import serial
 import json
 import os
+import struct
 import serial.tools.list_ports
 
 class SerialCommunicater:
@@ -26,6 +27,14 @@ class SerialCommunicater:
         if "timeout" in self.serial_info:
             self.serial.timeout = self.serial_info["timeout"]
             
+        if "receive_data" in self.serial.info:
+            ...
+            #self.serial.info["receive_format"] = 
+        
+        if "send_data" in self.serial.info:
+            ...
+            #self.serial.info["send_format"] = 
+        
     def begin(self):
         try:
             self.serial.open()
@@ -36,10 +45,25 @@ class SerialCommunicater:
         self.receive_message = self.serial.readline().decode('utf-8').strip()
         if self.print_log: print(self.receive_message)
     
+    def receive_dict(self):
+        if "receive_data" in self.serial.info:
+            data_bytes = self.serial.read(struct.calcsize(self.serial_info["recieve_format"]))
+            self.serial_info["recieve_data"] = bict(zip(self.serial_info["recieve_data"].keys(),
+                struct.unpack(self.serial_info["recieve_format"],data_bytes)
+            ))
+        else:
+            return False
+    
     def send(self, message = None):
         if message: self.send_message = message
         self.serial.write(self.send_message.encode('utf-8'))
         if self.print_log: print(self.send_message)
+    
+    def send_dict(self):
+        if "send_data" in self.serial.info:
+            self.serial.write(struct.pack(self.serial_info["send_format"],*self.serial_info["send_data"].values()))
+        else:
+            return False
         
 import pygame,sys
 
