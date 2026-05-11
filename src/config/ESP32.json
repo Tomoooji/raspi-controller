@@ -3,8 +3,14 @@
     "seiralnumber":"0001", "hid":"10C4", "pid":"EA60",
     "baudrate":115200,
     "timeout":0,
-    "protocol":{
-        "data1":false,
-        "data2":0
+    "send_data":{
+        "angle":0,
+        "dist":0,
+        "turn":0
+    },
+    "receive_data":{
+        "angle":0,
+        "dist":0,
+        "turn":0
     }
 }
