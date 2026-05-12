@@ -1,7 +1,7 @@
-import serial
-import json
 import os
+import json
 import struct
+import serial
 import serial.tools.list_ports
 
 class SerialCommunicater:
