@@ -16,8 +16,8 @@
     },
     
     "receive_datatype":{
-        "angle":"i",
-        "dist":"i",
+        "angle":"I",
+        "dist":"I",
         "turn":"i"
     },
     "receive_data":{
