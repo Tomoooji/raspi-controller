@@ -23,6 +23,7 @@ raspi-controller/
 │  │  └─ SerialController.h     # 通信
 │  ├─ main.py                   # メインプログラム(半完成)
 │  ├─ test_checkcontroller.py   # コントローラー入力→画面描画のテストコード
+│  ├─ test_structserial.py      # コントローラー入力→ESP32→コンソールのテストコード
 │  ├─ checkButtons.py.          # コントローラーのボタン割り当てを確認するプログラム
 │  ├─ GamepadInput.py           # コントローラーの入力受付用
 │  ├─ checkButtons.py           # コントローラーのボタン割り当て確認用
@@ -32,10 +33,11 @@ raspi-controller/
 └─ README.md                    # 説明用の文書
 ```
  今のところコントローラー入力の取得、画面の描画、シリアル通信をそれぞれGamepadInput.py,GraphicInterface.py,SerialCommunication.pyで行い、main.pyでそれを統合する予定。  
- 各プログラムにはその機能を担うクラスと、単体テストを行うためのmain関数がある。main.pyは3つのクラスを継承したControllerクラスを作ってmainメソッドを呼べば動くようにする予定。test_checkcontroller.pyではこのうちシリアル通信機能を省いたものを結合テストその1として作成した(PCにて動作確認済み)。  
- configフォルダ内のjsonファイルはコントローラーのボタン割り当てや画面の構成、通信関連の設定とかを保存しておいて、読み込むファイルを変えることで実行環境への依存度が減ったらいいな...ってやつ。  
+ 各プログラムにはその機能を担うクラスと、単体テストを行うためのmain関数がある。main.pyは3つのクラスを継承したControllerクラスを作ってmainメソッドを呼べば動くようにする予定。  test_checkcontroller.pyではこのうちシリアル通信機能を省いたものを結合テストその1として作成した(PCにて動作確認済み)。  
  ラズパイで動かしてみたところ、どうもコントローラーのボタンの割り当てとかがPCとやや異なるようで、別のjsonファイルを作って互換性をつけた。  
-　通信も特に問題なかった(python,ESPともにループの中でポーリングするようにしてるが、実行速度差を考えると非同期処理を使った方が良さそう)
+ シェルでの通信も特に問題なかった(python,ESPともにループの中でポーリングするようにしてるが、実行速度差を考えると非同期処理を使った方が良さそう)→下記テストにて文字列ベースではなく構造体ベースでのやり取りを模索  
+ test_DS4Struct.pyはコントローラーの入力を構造体として圧縮した状態でESP32とシリアル通信でやり取りする結合テスト(入力受け取り自体は動作保証済みなので実質的には通信面での実践的な単体テストと同じ)  
+ configフォルダ内のjsonファイルはコントローラーのボタン割り当てや画面の構成、通信関連の設定とかを保存しておいて、読み込むファイルを変えることで実行環境への依存度が減ったらいいな...ってやつ。  
 
  ↓見れない人用 [クラス図](https://github.com/Tomoooji/raspi-controller/blob/dev/img/classDiagram.png) ・ [フローチャート](https://github.com/Tomoooji/raspi-controller/blob/dev/img/flowchart.png)
 
