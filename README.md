@@ -5,6 +5,7 @@ Raspberry Piに接続したゲームコントローラーからESP32とシリア
 ```text
 raspi-controller/
 ├─ src/
+│  ├─ requirements.txt          # Pyhtonライブラリ一覧
 │  ├─ img/                      # 説明用の画像フォルダ
 │  ├─ config/                   # 設定ファイルフォルダ
 │  │  ├─ DualShock4.json        # PS4コントローラー用
@@ -14,7 +15,12 @@ raspi-controller/
 │  │  └─ DS4window.json         # 画面描画用
 │  ├─ ESP32_EchoTest/
 │  │  └─ ESP32_EchoTest.ino     # シリアル通信のテストコード
-│  ├─ requirements.txt          # ライブラリ一覧
+│  ├─ ESP32_PranariaTest/       # シリアル通信でメカナム動かすテストプログラム
+│  │  ├─ ESP32_PranariaTest.ino # 本体
+│  │  ├─ Accelarator.h          # 加速度処理
+│  │  ├─ AnalogMotorDriver.h    # モタドラ制御
+│  │  ├─ MecanumDriver.h        # 出力割り当て
+│  │  └─ SerialController.h     # 通信
 │  ├─ main.py                   # メインプログラム(半完成)
 │  ├─ test_checkcontroller.py   # コントローラー入力→画面描画のテストコード
 │  ├─ checkButtons.py.          # コントローラーのボタン割り当てを確認するプログラム
@@ -169,4 +175,4 @@ flowchart  TB
 ```
 
  ---
- 最終更新:2026-05-09
+ 最終更新:2026-05-12
