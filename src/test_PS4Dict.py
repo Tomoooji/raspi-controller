@@ -27,13 +27,15 @@ class Controller(SC,GP):
                 self.gamepad_info["Axis"]["LStickY"],
                 self.gamepad_info["Axis"]["LStickX"]
             ))%360
-            self.serial_info["send_data"]["dist"] = np.hypot(
+            
+            self.serial_info["send_data"]["dist"] = 255 *np.hypot(
                 self.gamepad_info["Axis"]["LStickX"],
                 self.gamepad_info["Axis"]["LStickY"]
-            )## shoud be scaled
-            self.serial_info["send_data"]["turn"] = (
-                (self.gamepad_info["Axis"]["R2"]) - (self.gamepad_info["Axis"]["L2"])
-            )## not acculate yet
+            ).clip(0,1)
+            
+            self.serial_info["send_data"]["turn"] = 255 *(
+                (self.gamepad_info["Axis"]["R2"]+1) - (self.gamepad_info["Axis"]["L2"]+1)
+            )
             
             for event in pygame.event.get():
                 if event.type == QUIT:
