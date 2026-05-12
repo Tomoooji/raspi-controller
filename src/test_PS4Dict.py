@@ -5,3 +5,38 @@ if it pass the consol test, I'd like to control mecanum(or 4 omuni) wheels
 result:
     not yet
 """
+import pygame,sys
+from pygame.locals import *
+from SerialCommunication import SerialCommunicater as SC
+from GamepadInput import GamePad as GP
+
+class Controller(SC,GP):
+    def __init__(self,config_serial,config_gamepad,print_log):
+        pygame.init()
+        SC.__init__(self,config_serial,print_log)
+        GP.__init__(self,config_gamepad,print_log)
+    
+    def main(self):
+        SC.begin(self)
+        pygame.display.set_mode((200,200))
+        
+        while self.is_connnect and self.serial.is_open:
+            
+            #self.serial_info["send_data"]["angle"] = self.gamepad_info["Axis"]["LStick"]
+            
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                
+                if event.type == JOYBUTTONDOWN:
+                    GP.onButtonDown(self,event.button)
+                if event.type == JOYAXISMOTION:
+                    GP.onAxisMove(self,event.type,event.value)
+                if event.type == JOYHATMOTION:
+                    GP.onHatTilt(self,event.hat,event.value)
+            pygame.display.update()
+            
+if __name__ == "__main__":
+    test = Controller("ESP32.json","DualShock4.json",True)
+    test.main()
