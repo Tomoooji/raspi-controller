@@ -5,8 +5,8 @@
     "timeout":0,
 
     "send_datatype":{
-        "angle":"i",
-        "dist":"i",
+        "angle":"I",
+        "dist":"I",
         "turn":"i"
     },
     "send_data":{
