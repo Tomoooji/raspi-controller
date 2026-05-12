@@ -1,7 +1,9 @@
 # raspi-controller
-Raspberry Piに接続したゲームコントローラーからESP32とシリアル通信してロボットを動かしたい  
+
+Raspberry Piに接続したゲームコントローラーからESP32とシリアル通信してロボットを動かしたい
 
 # 構成
+
 ```text
 raspi-controller/
 ├─ src/
@@ -32,22 +34,24 @@ raspi-controller/
 ├─ LICENSE                      # これでいいのかわかってない
 └─ README.md                    # 説明用の文書
 ```
- 今のところコントローラー入力の取得、画面の描画、シリアル通信をそれぞれGamepadInput.py,GraphicInterface.py,SerialCommunication.pyで行い、main.pyでそれを統合する予定。  
- 各プログラムにはその機能を担うクラスと、単体テストを行うためのmain関数がある。main.pyは3つのクラスを継承したControllerクラスを作ってmainメソッドを呼べば動くようにする予定。  test_checkcontroller.pyではこのうちシリアル通信機能を省いたものを結合テストその1として作成した(PCにて動作確認済み)。  
- ラズパイで動かしてみたところ、どうもコントローラーのボタンの割り当てとかがPCとやや異なるようで、別のjsonファイルを作って互換性をつけた。  
- シェルでの通信も特に問題なかった(python,ESPともにループの中でポーリングするようにしてるが、実行速度差を考えると非同期処理を使った方が良さそう)→下記テストにて文字列ベースではなく構造体ベースでのやり取りを模索  
- test_DS4Struct.pyはコントローラーの入力を構造体として圧縮した状態でESP32とシリアル通信でやり取りする結合テスト(入力受け取り自体は動作保証済みなので実質的には通信面での実践的な単体テストと同じ)  
- configフォルダ内のjsonファイルはコントローラーのボタン割り当てや画面の構成、通信関連の設定とかを保存しておいて、読み込むファイルを変えることで実行環境への依存度が減ったらいいな...ってやつ。  
 
- ↓見れない人用 [クラス図](https://github.com/Tomoooji/raspi-controller/blob/dev/img/classDiagram.png) ・ [フローチャート](https://github.com/Tomoooji/raspi-controller/blob/dev/img/flowchart.png)
+今のところコントローラー入力の取得、画面の描画、シリアル通信をそれぞれGamepadInput.py,GraphicInterface.py,SerialCommunication.pyで行い、main.pyでそれを統合する予定。
+各プログラムにはその機能を担うクラスと、単体テストを行うためのmain関数がある。main.pyは3つのクラスを継承したControllerクラスを作ってmainメソッドを呼べば動くようにする予定。  test_checkcontroller.pyではこのうちシリアル通信機能を省いたものを結合テストその1として作成した(PCにて動作確認済み)。
+ラズパイで動かしてみたところ、どうもコントローラーのボタンの割り当てとかがPCとやや異なるようで、別のjsonファイルを作って互換性をつけた。
+シェルでの通信も特に問題なかった(python,ESPともにループの中でポーリングするようにしてるが、実行速度差を考えると非同期処理を使った方が良さそう)→下記テストにて文字列ベースではなく構造体ベースでのやり取りを模索
+test_DS4Struct.pyはコントローラーの入力を構造体として圧縮した状態でESP32とシリアル通信でやり取りする結合テスト(入力受け取り自体は動作保証済みなので実質的には通信面での実践的な単体テストと同じ)
+configフォルダ内のjsonファイルはコントローラーのボタン割り当てや画面の構成、通信関連の設定とかを保存しておいて、読み込むファイルを変えることで実行環境への依存度が減ったらいいな...ってやつ。
+
+↓見れない人用 [クラス図](https://github.com/Tomoooji/raspi-controller/blob/dev/img/classDiagram.png) ・ [フローチャート](https://github.com/Tomoooji/raspi-controller/blob/dev/img/flowchart.png)
 
 ## クラス図
+
 ```mermaid
 classDiagram
     direction LR
-    Dualshock4_json --* Gamepad :設定ファイル
-    DS4window_json --* GraphicInterface :設定ファイル
-    ESP32_json --* SerialCommunicater :設定ファイル
+    Dualshock4_json <--o Gamepad :設定ファイル
+    DS4window_json <--o GraphicInterface :設定ファイル
+    ESP32_json <--o SerialCommunicater :設定ファイル
     Gamepad <|-- Controller :継承
     GraphicInterface <|-- Controller :継承
     SerialCommunicater <|-- Controller :継承
@@ -111,7 +115,9 @@ classDiagram
         protcol
     }
 ```
+
 ## フローチャート(?)
+
 ```mermaid
 flowchart  LR
     C[/Controller Input/] -->|update| B
@@ -142,7 +148,9 @@ flowchart  LR
     K
     end
 ```
-# 
+
+#
+
 ```mermaid
 flowchart  TB
 
@@ -161,7 +169,7 @@ flowchart  TB
         I[receive_message]
         K[(Serialconfig.json)]
     end
-    
+  
     A -..->|__init__| B
     C -->|update| B
     B -->|convert| G
@@ -176,5 +184,6 @@ flowchart  TB
     D -->|draw| F
 ```
 
- ---
- 最終更新:2026-05-12
+---
+
+最終更新:2026-05-12
