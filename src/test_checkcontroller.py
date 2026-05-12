@@ -1,3 +1,9 @@
+"""
+test program for checking GamepadInput.py + GraphicalInterface.py
+correct input data from DualShock4 and draw them on pygame window
+result: succesfully worked on PC & Raspi
+"""
+
 import pygame, sys
 from pygame.locals import *
 from GamepadInput import GamePad
