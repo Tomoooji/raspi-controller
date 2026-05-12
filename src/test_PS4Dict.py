@@ -5,6 +5,7 @@ if it pass the consol test, I'd like to control mecanum(or 4 omuni) wheels
 result:
     not yet
 """
+import numpy as np
 import pygame,sys
 from pygame.locals import *
 from SerialCommunication import SerialCommunicater as SC
@@ -22,7 +23,17 @@ class Controller(SC,GP):
         
         while self.is_connnect and self.serial.is_open:
             
-            #self.serial_info["send_data"]["angle"] = self.gamepad_info["Axis"]["LStick"]
+            self.serial_info["send_data"]["angle"] = np.degrees(np.arctan2(
+                self.gamepad_info["Axis"]["LStickY"],
+                self.gamepad_info["Axis"]["LStickX"]
+            ))%360
+            self.serial_info["send_data"]["dist"] = np.hypot(
+                self.gamepad_info["Axis"]["LStickX"],
+                self.gamepad_info["Axis"]["LStickY"]
+            )## shoud be scaled
+            self.serial_info["send_data"]["turn"] = (
+                (self.gamepad_info["Axis"]["R2"]) - (self.gamepad_info["Axis"]["L2"])
+            )## not acculate yet
             
             for event in pygame.event.get():
                 if event.type == QUIT:
