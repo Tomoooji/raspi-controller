@@ -149,7 +149,7 @@ flowchart  LR
     end
 ```
 
-#
+# 
 
 ```mermaid
 flowchart  TB
@@ -182,6 +182,72 @@ flowchart  TB
     H[[ESP32]] ===>|control| J[/Robot/]
     E -.->|__init__| D
     D -->|draw| F
+```
+### ESP32側の構成(Pranaria)
+参考:https://github.com/Tomoooji/Planaria_renewal/tree/example/tomoooji
+
+```mermaid
+classDiagram
+    direction TD
+    Controller_Serial *--> ReceiveData
+    MecanumDriver *--> ConfigData_leg
+    Controller_Serial *--> ConfigData_serial
+    Controller_Serial ..> MecanumDriver
+    MecanumDriver *--> AnalogMotorDriver
+    MecanumDriver *--> Accelarator
+
+    class Controller_Serial{
+        -ReceiveData input;
+        -ConfigData_serial config;
+        +bool begin();
+        +bool update();
+        +ReceiveData get_input();
+        +ConfigData_serial get_config();
+    }
+    class ReceiveData{
+        <<struct>>
+        +int angle;
+        +int dist;
+        +int turn;
+    }
+    class ConfigData_serial{
+        <<struct>>
+        +int baudrate;
+    }
+    class MecanumDriver{
+        -ConfigData_leg config;
+        -AnalogMotorDriver[4] motors;
+        -Accelarator~int~ acceler;
+        +void begin();
+        +void update();
+        +void move();
+    }
+    class ConfigData_leg{
+        <<struct>>
+        +bool reversed[4];
+        +int max_speed[4];
+    }
+    class AnalogMotorDriver{
+        -const uint8_t[] _pins;
+        -int _max;
+        -int _speed;
+        +void attach();
+        +void apply();
+        +void set_speed();
+        +int get_speed();
+    }
+    class Accelarator~T~{
+        -T _accel;
+        -T _decel;
+        +T apply();
+    }
+```
+```mermaid
+graph TD;
+SerialController -->|angle,dist,turn| MecanumDriver;
+MecanumDriver -->|direction| MotorDriver;
+MecanumDriver -->|speed| Accelarator;
+Accelarator -->|speed| MotorDriver;
 ```
 
 ---

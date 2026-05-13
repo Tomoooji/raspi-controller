@@ -12,7 +12,7 @@ struct ReceiveData{
 class Controller_Serial{
 private:
   HardwareSerial& Ser;
-  struct ConfigData{
+  struct ConfigData_serial{
     int baudrate;
   } config;
   ReceiveData input;
@@ -36,5 +36,5 @@ public:
     }
   }
   const ReceiveData& get_input(){return this->input;}
-  ConfigData& get_config(){return this->config;}
+  ConfigData_serial& get_config(){return this->config;}
 };
