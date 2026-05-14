@@ -5,8 +5,8 @@
     "timeout":0,
 
     "send_datatype":{
-        "angle":"I",
-        "dist":"I",
+        "angle":"i",
+        "dist":"i",
         "turn":"i"
     },
     "send_data":{
@@ -16,8 +16,8 @@
     },
     
     "receive_datatype":{
-        "angle":"I",
-        "dist":"I",
+        "angle":"i",
+        "dist":"i",
         "turn":"i"
     },
     "receive_data":{

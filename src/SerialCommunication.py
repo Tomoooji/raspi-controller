@@ -8,7 +8,7 @@ class SerialCommunicater:
     def __init__(self,config_json, print_log = False):
         self.print_log = print_log #"raspi-controller","src",
         
-        with open(os.path.join(os.getcwd(),"config", config_json), "r") as config:
+        with open(os.path.join(os.getcwd(),"raspi-controller","src","config", config_json), "r") as config:
             self.serial_info = json.load(config)
         self.serial = serial.Serial()
         
@@ -44,13 +44,26 @@ class SerialCommunicater:
         #if self.print_log: print(self.receive_message)
     
     def receive_dict(self):
-        if "receive_data" in self.serial.info:
-            data_bytes = self.serial.read(struct.calcsize(self.serial_info["recieve_format"]))
-            self.serial_info["recieve_data"] = dict(zip(self.serial_info["recieve_data"].keys(),
-                struct.unpack(self.serial_info["recieve_format"],data_bytes)
+        if "receive_data" in self.serial_info:
+            data_bytes = self.serial.read(struct.calcsize(self.serial_info["receive_format"]))
+            print("receive",data_bytes)
+            self.serial_info["receive_data"] = dict(zip(self.serial_info["receive_data"].keys(),
+                struct.unpack(self.serial_info["receive_format"],data_bytes)
             ))
         else:
             return False
+
+    def receive_dict_(self):
+        if not "receive_data" in self.serial_info:return False
+        if self.serial.in_waiting >= 14:
+            if self.serial.read(2) == b'\xAA\xBB':
+                data_bytes = self.serial.read(struct.calcsize(self.serial_info["receive_format"]))
+                print("receive",data_bytes)
+                self.serial_info["receive_data"] = dict(zip(self.serial_info["receive_data"].keys(),
+                    struct.unpack(self.serial_info["receive_format"],data_bytes)
+                ))
+            else:
+                self.serial.read(1)
     
     #def send(self, message = None):
         #if message: self.send_message = message
@@ -58,13 +71,17 @@ class SerialCommunicater:
         #if self.print_log: print(self.send_message)
     
     def send_dict(self):
-        if "send_data" in self.serial.info:
-            self.serial.write(struct.pack(self.serial_info["send_format"],*self.serial_info["send_data"].values()))
+        if "send_data" in self.serial_info:
+            self.serial.write(data:=struct.pack(
+                    self.serial_info["send_format"],
+                    *list(map(int,self.serial_info["send_data"].values()))
+            ))
+            #print("send",data)
         else:
             return False
         
+"""
 import pygame,sys
-
 def main():
     pygame.init()
     pygame.display.set_mode((200,200))
@@ -89,3 +106,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""

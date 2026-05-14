@@ -20,9 +20,9 @@ class Controller(SC,GP):
     def main(self):
         SC.begin(self)
         pygame.display.set_mode((200,200))
-        
+        pygame.time.wait(2000)
         while self.is_connnect and self.serial.is_open:
-            
+            """
             self.serial_info["send_data"]["angle"] = np.degrees(np.arctan2(
                 self.gamepad_info["Axis"]["LStickY"],
                 self.gamepad_info["Axis"]["LStickX"]
@@ -36,6 +36,10 @@ class Controller(SC,GP):
             self.serial_info["send_data"]["turn"] = 255 *(
                 (self.gamepad_info["Axis"]["R2"]+1) - (self.gamepad_info["Axis"]["L2"]+1)
             )
+            """
+            SC.send_dict(self)
+            SC.receive_dict_(self)
+            #print(self.serial_info["receive_data"])
             
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -48,6 +52,7 @@ class Controller(SC,GP):
                     GP.onAxisMove(self,event.type,event.value)
                 if event.type == JOYHATMOTION:
                     GP.onHatTilt(self,event.hat,event.value)
+                
             pygame.display.update()
             
 if __name__ == "__main__":

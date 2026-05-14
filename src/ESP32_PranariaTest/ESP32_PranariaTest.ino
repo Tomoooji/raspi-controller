@@ -15,7 +15,7 @@ void setup(){
 }
 
 void loop(){
-  ctr.update()
+  ctr.update();
   /*if(ctr.update()){
     leg.update(
         radians(ctr.get_input().angle),
