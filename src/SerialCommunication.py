@@ -80,8 +80,19 @@ class SerialCommunicater:
         else:
             return False
         
-"""
+
 import pygame,sys
+def main_():
+    pygame.init()
+    pygame.display.set_modde((200,200))
+    ser = SerialCommunicater("ESP32.json",True)
+    ser.begi()
+    while ser.serial.is_open:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                
+
+
 def main():
     pygame.init()
     pygame.display.set_mode((200,200))
