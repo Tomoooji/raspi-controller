@@ -38,6 +38,21 @@ class SerialCommunicater:
             self.serial.open()
         except serial.SerialException as e:
             print(f"error:{e}")
+
+    #def send(self, message = None):
+        #if message: self.send_message = message
+        #self.serial.write(self.send_message.encode('utf-8'))
+        #if self.print_log: print(self.send_message)
+    
+    def send_dict(self):
+        if "send_data" in self.serial_info:
+            self.serial.write(data:=struct.pack(
+                    self.serial_info["send_format"],
+                    *list(map(int,self.serial_info["send_data"].values()))
+            ))
+            #print("send",data)
+        else:
+            return False
     
     #def receive(self):
         #self.receive_message = self.serial.readline().decode('utf-8').strip()
@@ -64,33 +79,26 @@ class SerialCommunicater:
                 ))
             else:
                 self.serial.read(1)
-    
-    #def send(self, message = None):
-        #if message: self.send_message = message
-        #self.serial.write(self.send_message.encode('utf-8'))
-        #if self.print_log: print(self.send_message)
-    
-    def send_dict(self):
-        if "send_data" in self.serial_info:
-            self.serial.write(data:=struct.pack(
-                    self.serial_info["send_format"],
-                    *list(map(int,self.serial_info["send_data"].values()))
-            ))
-            #print("send",data)
-        else:
-            return False
-        
+            
 
 import pygame,sys
+
 def main_():
     pygame.init()
     pygame.display.set_modde((200,200))
     ser = SerialCommunicater("ESP32.json",True)
     ser.begi()
     while ser.serial.is_open:
+        ser.send_dict()
+        ser.receive_dict()
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                
+                ser.serial_info["send_data"]["angle"] = 1
+            if event.type == pygame.QUIT:
+                ser.serial.close()
+                pygame.quit()
+                sys.exit()
+        pygame.display.update()
 
 
 def main():
@@ -117,4 +125,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-"""
