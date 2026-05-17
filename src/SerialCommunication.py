@@ -71,7 +71,7 @@ class SerialCommunicater:
     def receive_dict_(self):
         if not "receive_data" in self.serial_info:return False
         if self.serial.in_waiting >= 14:
-            if self.serial.read(2) == b'\xAA\xBB':
+            if (head:=self.serial.read(2)) == b'\xAA\xBB':
                 data_bytes = self.serial.read(struct.calcsize(self.serial_info["receive_format"]))
                 print("receive",data_bytes)
                 self.serial_info["receive_data"] = dict(zip(self.serial_info["receive_data"].keys(),
@@ -79,18 +79,19 @@ class SerialCommunicater:
                 ))
             else:
                 self.serial.read(1)
+            print(head)
             
 
 import pygame,sys
 
 def main_():
     pygame.init()
-    pygame.display.set_modde((200,200))
+    pygame.display.set_mode((200,200))
     ser = SerialCommunicater("ESP32.json",True)
-    ser.begi()
+    ser.begin()
     while ser.serial.is_open:
         ser.send_dict()
-        ser.receive_dict()
+        ser.receive_dict_()
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 ser.serial_info["send_data"]["angle"] = 1
@@ -124,4 +125,4 @@ def main():
         pygame.display.update()
 
 if __name__ == "__main__":
-    main()
+    main_()
