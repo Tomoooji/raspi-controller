@@ -41,3 +41,23 @@ void writeArray(){
   }
   Serial.println();
 }
+/*
+#define BAOUDRATE 115200
+#pragma pack(push,1)
+struct Data{
+  int32_t ang;
+  int32_t dist;
+  int32_t turn;
+} data;
+#pragma pack(pop)
+void setup(){
+  Serial.begin(BAOUDRATE);
+  pinMode(15,OUTPUT);
+  digitalWrite(15,LOW);
+}
+void loop(){
+  if(Serial.available()){
+    Serial.readBytes((uint8_t*)&data,sizeof(Data));
+    Serial.write((uint8_t*)&data,sizeof(Data));
+  }
+}*/
