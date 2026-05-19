@@ -92,7 +92,7 @@ def main_():
     ser.begin()
     while ser.serial.is_open:
         ser.send_dict()
-        ser.receive_dict_()
+        ser.receive_dict()
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 ser.serial_info["send_data"]["angle"] = 1
