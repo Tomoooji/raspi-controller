@@ -36,7 +36,7 @@ class SerialCommunicater:
     def begin(self):
         try:
             self.serial.open()
-            self.serial.read(310)#trash from esp
+            print(self.serial.read(310))#trash from esp
         except serial.SerialException as e:
             print(f"error:{e}")
 

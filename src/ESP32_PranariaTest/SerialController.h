@@ -3,8 +3,8 @@
 
 #pragma pack(push,1)
 struct ReceiveData{
-    uint8_t header1 = 0xAA;
-    uint8_t header2 = 0xBB;
+    //uint8_t header1 = 0xAA;
+    //uint8_t header2 = 0xBB;
     uint32_t angle;//degree
     uint32_t dist;
     uint32_t turn;
