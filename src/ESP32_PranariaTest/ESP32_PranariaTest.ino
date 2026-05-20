@@ -1,15 +1,18 @@
 #include "SerialController.h"
 #include "MecanumDriver.h"
 
-//constexpr uint8_t FLpin[2] = {1,2};
-//constexpr uint8_t BLpin[2] = {1,2};
-//constexpr uint8_t BRpin[2] = {1,2};
-//constexpr uint8_t FRpin[2] = {1,2};
+//constexpr uint8_t FLpin[] = {27,14};
+//constexpr uint8_t BLpin[] = {25,26};
+//constexpr uint8_t BRpin[] = {32,33};
+//constexpr uint8_t FRpin[] = {17,16};
+//int leg_max[] = {170,170,170,170};
 //Mecanum leg;
 
 Controller_Serial ctr(Serial,115200);
 
 void setup(){
+  //*leg.get_config().max_speed = *leg_max;
+
   if(!ctr.begin()) return;
   //leg.begin(FLpin,BLpin,BRpin,FRpin);
 }

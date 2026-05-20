@@ -14,10 +14,10 @@ struct ReceiveData{
 class Controller_Serial{
 private:
   HardwareSerial& SER;
+  ReceiveData input;
   struct ConfigData_serial{
     int baudrate;
   } config;
-  ReceiveData input;
 
 public:
   Controller_Serial(HardwareSerial& serial, int baudrate):SER(serial),config{baudrate},input{}{}

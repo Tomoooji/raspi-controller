@@ -13,8 +13,8 @@ private:
   };
 
   struct ConfigData_leg{
-    bool reversed[4] = {false,false,false,false};
-    int max_speed[4] = {};
+    bool reversed[4] = {false,false,false,false}; //={}でもいいが,,,
+    int max_speed[4] = {}; //0にしとくと255にしてくれる
   } config;
 
   Accelarator<int> acceler;
@@ -33,7 +33,7 @@ public:
     this->motors[FRONTLEFT].set_speed(
       this->acceler.apply(
         this->motors[FRONTLEFT].get_speed(),
-        (speed_line *cos(0.25*PI +direction) +speed_turn) * (this->config.reversed[FRONTLEFT] ? -1:1)
+        (speed_line *cos(0.25*PI +direction) -speed_turn) * (this->config.reversed[FRONTLEFT] ? -1:1)
       )
     );
     this->motors[BACKLEFT].set_speed(
@@ -43,7 +43,7 @@ public:
     );
     this->motors[BACKRIGHT].set_speed(
       this->acceler.apply(this->motors[BACKRIGHT].get_speed(),
-        (speed_line *cos(0.25*PI +direction) -speed_turn) * (this->config.reversed[BACKRIGHT] ? -1:1)
+        (speed_line *cos(0.25*PI +direction) +speed_turn) * (this->config.reversed[BACKRIGHT] ? -1:1)
       )
     );
     this->motors[FRONTRIGHT].set_speed(
@@ -60,4 +60,7 @@ public:
     }
   }
 
+  ConfigData_leg& get_config(){
+    return this->config;
+  }
 };
