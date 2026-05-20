@@ -17,7 +17,6 @@ raspi-controller/
 │  ├─ requirements.txt          # ライブラリ一覧
 │  ├─ main.py                   # メインプログラム(半完成)
 │  ├─ test_checkcontroller.py   # コントローラー入力→画面描画のテストコード
-│  ├─ checkButtons.py.          # コントローラーのボタン割り当てを確認するプログラム
 │  ├─ GamepadInput.py           # コントローラーの入力受付用
 │  ├─ checkButtons.py           # コントローラーのボタン割り当て確認用
 │  ├─ GraphicalInterface.py     # コントローラー入力確認画面の描画用
