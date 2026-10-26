@@ -6,7 +6,7 @@ import serial.tools.list_ports
 
 class SerialCommunicater:
     def __init__(self,config_json, print_log = False):
-        self.print_log = print_log #"raspi-controller","src",
+        self.print_log = print_log
         
         with open(os.path.join(os.getcwd(),"src","config", config_json), "r") as config:
             self.serial_info = json.load(config)

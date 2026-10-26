@@ -8,8 +8,8 @@ result:
 import numpy as np
 import pygame,sys
 from pygame.locals import *
-from SerialCommunication import SerialCommunicater as SC
-from GamepadInput import GamePad as GP
+from ..SerialCommunication import SerialCommunicater as SC
+from ..GamepadInput import GamePad as GP
 
 class Controller(SC,GP):
     def __init__(self,config_serial,config_gamepad,print_log):

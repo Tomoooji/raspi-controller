@@ -6,8 +6,8 @@ result: succesfully worked on PC & Raspi
 
 import pygame, sys
 from pygame.locals import *
-from GamepadInput import GamePad
-from GraphicalInterface import GraphicInterface as GUI
+from ..GamepadInput import GamePad
+from ..GraphicalInterface import GraphicInterface as GUI
 
 class Controller(GUI,GamePad):
     def __init__(self, config_widow, config_controller, print_log):
