@@ -20,7 +20,7 @@ class Controller(SC,GP):
     def main(self):
         SC.begin(self)
         screen = pygame.display.set_mode((500,500))
-        pygame.time.wait(2000)
+        pygame.time.wait(100)
         tick = pygame.time.Clock()
         while self.is_connnect and self.serial.is_open:
             GP.getInput(self)
