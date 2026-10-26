@@ -8,16 +8,18 @@ class SerialCommunicater:
     def __init__(self,config_json, print_log = False):
         self.print_log = print_log #"raspi-controller","src",
         
-        with open(os.path.join(os.getcwd(),"raspi-controller","src","config", config_json), "r") as config:
+        with open(os.path.join(os.getcwd(),"src","config", config_json), "r") as config:
             self.serial_info = json.load(config)
         self.serial = serial.Serial()
         
         if "port" in self.serial_info:
             self.serial.port = self.serial_info["port"]
+            if self.print_log: print(f"port:{self.serial.port}")
         else:
             device = [port.device for port in serial.tools.list_ports.comports() if port.serial_number == self.serial_info.get("seiralnumber","")]
             if len(device):
                 self.serial.port = device[0]
+                if self.print_log: print(f"port:{self.serial.port}")
             else:
                 ...
         self.serial.baudrate = self.serial_info["baudrate"]
@@ -36,7 +38,7 @@ class SerialCommunicater:
     def begin(self):
         try:
             self.serial.open()
-            print(self.serial.read(310))#trash from esp
+            if self.print_log: print(self.serial.read(500))#trash from esp 310
         except serial.SerialException as e:
             print(f"error:{e}")
 
@@ -51,7 +53,7 @@ class SerialCommunicater:
                     self.serial_info["send_format"],
                     *list(map(int,self.serial_info["send_data"].values()))
             ))
-            #print("send",data)
+            if self.print_log: print("send",data)
         else:
             return False
     
@@ -62,7 +64,10 @@ class SerialCommunicater:
     def receive_dict(self):
         if "receive_data" in self.serial_info:
             data_bytes = self.serial.read(struct.calcsize(self.serial_info["receive_format"]))
-            print("receive",data_bytes)
+            if self.print_log: print("receive",data_bytes)
+            if len(data_bytes) != struct.calcsize(self.serial_info["receive_format"]):
+                print(f"data length {len(data_bytes)} mismatch")
+                return False
             self.serial_info["receive_data"] = dict(zip(self.serial_info["receive_data"].keys(),
                 struct.unpack(self.serial_info["receive_format"],data_bytes)
             ))
@@ -74,7 +79,7 @@ class SerialCommunicater:
         if self.serial.in_waiting >= 14:
             if (head:=self.serial.read(2)) == b'\xAA\xBB':
                 data_bytes = self.serial.read(struct.calcsize(self.serial_info["receive_format"]))
-                print("receive",data_bytes)
+                if self.print_log: print("receive_",data_bytes)
                 self.serial_info["receive_data"] = dict(zip(self.serial_info["receive_data"].keys(),
                     struct.unpack(self.serial_info["receive_format"],data_bytes)
                 ))

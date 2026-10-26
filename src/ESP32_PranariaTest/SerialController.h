@@ -23,9 +23,11 @@ public:
   Controller_Serial(HardwareSerial& serial, int baudrate):SER(serial),config{baudrate},input{}{}
   bool begin(){
     this->SER.begin(this->config.baudrate);
+    return this->SER;
   }
   bool begin(const uint8_t Rx, const uint8_t Tx){
     this->SER.begin(this->config.baudrate, SERIAL_8N1, Rx, Tx); //8ビット、パリティなし、ストップビット1（8N1）
+    return this->SER;
   }
   bool update(){
     if(this->SER.available()){

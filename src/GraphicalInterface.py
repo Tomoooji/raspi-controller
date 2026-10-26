@@ -4,7 +4,7 @@ import os
 
 class GraphicInterface:
     def __init__(self,config_json):
-        with open(os.path.join(os.getcwd(),"raspi-controller","src","config",config_json), "r") as config:
+        with open(os.path.join(os.getcwd(),"src","config",config_json), "r") as config:
             self.window_info = json.load(config)
         self.screen = None
         

@@ -21,8 +21,8 @@
         "turn":"i"
     },
     "receive_data":{
+        "turn":0,
         "angle":0,
-        "dist":0,
-        "turn":0
+        "dist":0
     }
 }

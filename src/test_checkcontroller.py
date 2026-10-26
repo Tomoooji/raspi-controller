@@ -91,7 +91,7 @@ class Controller(GUI,GamePad):
                     GamePad.onButtonDown(self,event.button)
                 
                 if event.type == JOYAXISMOTION:
-                    GamePad.onAxisMove(self,event.type,event.value)
+                    GamePad.onAxisMove(self,event.axis,event.value)
                 
                 if event.type == JOYHATMOTION:
                     GamePad.onHatTilt(self,event.hat,event.value)
@@ -99,5 +99,5 @@ class Controller(GUI,GamePad):
             pygame.display.update()
 
 if __name__ == "__main__":
-    test = Controller("DS4window.json","DualShock4.json",False)
+    test = Controller("DS4window.json","DualSense.json",False)
     test.main()

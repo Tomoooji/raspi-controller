@@ -5,7 +5,7 @@ import json
 class GamePad:
     def __init__(self, config_json, print_log = False):
         self.print_log = print_log
-        with open(os.path.join(os.getcwd(),"raspi-controller","src","config", config_json), "r") as config:
+        with open(os.path.join(os.getcwd(),"src","config", config_json), "r") as config:
             self.gamepad_info = json.load(config)
         self.is_connnect = False
         self.gamepad = None
@@ -23,7 +23,8 @@ class GamePad:
             else:
                 print("unexpected controller may be connected")
                 continue
-        print("please connect controller to computer")
+        else:
+            print("please connect controller to computer")
     
     def onButtonDown(self, button):
         if self.print_log: print(list(self.gamepad_info["Button"].keys())[button])
@@ -53,7 +54,7 @@ import pygame, sys
 
 def main():
     pygame.init()
-    pad=GamePad("DualShock4.json",True)#DualShock4#ElecomPad
+    pad=GamePad("DualSense.json",True)#DualShock4#ElecomPad
     pygame.display.set_mode((300,300))
     while pad.is_connnect:
         for event in pygame.event.get():

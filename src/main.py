@@ -73,7 +73,7 @@ class Controller(GP,GI,SC):
         
     def main(self):
         self.setup()
-        while self.is_runnig:
+        while self.is_running:
             self.loop()
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -83,7 +83,8 @@ class Controller(GP,GI,SC):
 if __name__ == "__main__":
     obj = Controller(
         "DualShock4.json",
-        "DS4Window.json",
-        "ESP32.json"
+        "DS4window.json",
+        "ESP32.json",
+        True
     )
     obj.main()
