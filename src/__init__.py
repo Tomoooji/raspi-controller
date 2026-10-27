@@ -1,3 +1,3 @@
-from GamepadInput import GamePad
-from GraphicalInterface import GraphicInterface
-from SerialCommunication import SerialCommunicater
+from src.GamepadInput import GamePad
+from src.GraphicalInterface import GraphicInterface
+from src.SerialCommunication import SerialCommunicater
